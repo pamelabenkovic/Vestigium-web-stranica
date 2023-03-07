@@ -1,0 +1,11 @@
+Pamela Benković 0035218108
+Grupa 1 
+https://benkovicpamela-grupa1.web.app/
+
+Stranica u navigaciji ima EN opciju koja prevodi stranicu na engleski jezik. 
+Na naslovnoj stranici link pridruži se vodi na formu za priključivanje volonterima
+a link pogledaj sve na stranicu "dogadaji" gdje su prikazani sve nadolazeći eventi.
+Na stranici događanja možemo klikom na odabranu sliku vidjeti opis eventa kao i imat opciju kliknuti 
+gumb "Priključi se" koji će nas odvesti do forme za rezerviranje mjesta na eventu. 
+Na kontakt stranci ima link "Upute do nas" koji otvara google maps i pokazuje najbolju rutu od
+lokacije korisnika do Vestigiuma.

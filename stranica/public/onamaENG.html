@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="slike/favicon-32x32.png">
+    <script src="https://kit.fontawesome.com/ed785aaed0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="onamaCss.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.carousel.min.css">
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.theme.default.min.css">
+
+    <title>About us</title>
+</head>
+<body>
+    
+    <div class="container-fluid naslovna">
+        <div class="row">
+            <ul>
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <a href="navigENG.html">
+                        <li><img id="logoslika" src="slike/LOGO.png"></li>
+                        
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <li><a href="onamaENG.html">ABOUT US</a></li>
+                    
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <li><a href="dogadajiENG.html">EVENTS</a></li>
+                    
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <li><a href="kontaktENG.html">CONTACT</a></li>
+                    
+                </div>
+
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                    <li><a href="onama.html">HRV</a></li>
+                    
+                </div>
+
+            </ul>
+        </div>
+        
+    </div>
+
+    <div class="topnav">
+        <a href="navig.html" class="active"><img id="logoslika" src="slike/Watercolor-Leaves-PNG-Transparent-Image.png"></a>
+        <!-- Navigation links (hidden by default) -->
+        <div id="myLinks">
+            <center>
+                <a href="onamaENG.html">ABOUT US</a>
+            </center>
+          
+            <center>
+                <a href="dogadajiENG.html">EVENTS</a>
+            </center>
+
+            <center>
+                <a href="kontaktENG.html">CONTACT</a>
+            </center>
+
+            <center>
+                <a href="onama.html">Hrv</a>
+            </center>
+          
+          
+        </div>
+        <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+
+      
+   <script>
+    function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+   </script>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <center>
+                <canvas id="canvas"></canvas>
+            </center>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    var canvas = document.getElementById('canvas'),
+      context = canvas.getContext('2d'),
+      height = canvas.height = 400,
+      width = canvas.width = document.body.offsetWidth;
+  
+  function Tree(ctx,x,y) {
+      this.ctx = ctx;
+      this.sleep = 4;
+      this.loss = .1; // branch width loss
+      this.speed = .3; // runner distance speed
+    this.limit = Math.random() * 3000 + 10000; // limit the number of new generations (before I stop);
+    this.i = 0;
+      this.develop(10,0,x,y,0,-Math.random()*3);// start the generation
+  }
+  Tree.prototype = {
+      constructor: Tree,
+      // width, life, x, y, deviationx, devationy
+      develop: function(w,l,x,y,dx,dy) {
+          this.ctx.beginPath();
+          this.ctx.moveTo(x,y); // goto start
+          x+=dx; //set up new position
+          y+=dy;
+          dx+=Math.sin(Math.random()+l)*this.speed;
+          dy+=Math.cos(Math.random()+l + (l/2))*this.speed;
+          // if width is large enough we are a trunk/branch
+          if( w-l*this.loss > .5 ) {
+              this.ctx.lineWidth = w-l*this.loss;
+              this.ctx.strokeStyle = 'rgba(77, 62, 58, 1.0)';
+          } else { // otherwise a leaf
+              this.ctx.lineWidth = (w-l*this.loss)*4;
+              this.ctx.strokeStyle = 'rgba(24, ' + (Math.random() * 60 + 68 | 0) + ', 62, .3)';
+          }
+          // draw line
+          this.ctx.lineTo(x, y);
+          this.ctx.stroke();
+          this.ctx.closePath();
+          if( this.i++ > this.limit ) {
+              return;
+          }
+          // if we've been generating a while start drawing leafs.
+          if( l > 5 * w + Math.random() * 100 && Math.random()>.5) {
+              var that = this;
+              setTimeout(function() {
+                  that.develop(w,++l,x,y,2*Math.sin(Math.random()+l),2*Math.cos(Math.random()+l));
+              }, this.sleep);
+          }
+          // draw branches (or leafs, depending on size).. yes both draw leafs. i said it was cheap.
+          if( w-l*this.loss >= -1.5 ) {
+              var that = this;
+              setTimeout(function() {
+                  that.develop(w,++l,x,y,dx,dy);
+              }, this.sleep);
+          }
+  
+      }
+  };
+  // this entire thing is terribly expensive on your cpu and is a horrible understanding of http://urbanoalvarez.es/blog/2013/01/14/procedurally-generated-trees-in-javascript/
+  for( var i = 0; i < 20; i++ ) {
+      new Tree(context, Math.random()*width, height);
+  }
+  
+  </script>
+
+  <div class="container-fluid sivi">
+    <div class="container">
+        <div class="row prvi">
+            <div class="col-lg-9 col-md-9 col-sm-9 ">
+                <h2>
+                    Idea
+                </h2><br>
+                <p class="tekstonama1">
+                    Vestigium Association (lat. footprint) is an ecological-creative association for improving the quality
+                     of our community by approaching and promoting a healthy and sustainable way for our future. 
+                      The idea of founding the association arose in 2011 by six women listening to the needs of their
+                       neighbours in creating a multifunctional space where initiatives could take place and develop. 
+                       The space given by Vestigium should improve the quality of living together as a community and to 
+                       solve problems such as the growing distance among people, the lack of places to gather and to socialize, 
+                       the lack of content for children and adults in their lives and the exclusion of families and their 
+                       children as well older residents.
+                </p>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <img class="onama1" src="slike/onama1.jpg">
+
+            </div>
+
+        </div>
+
+        <div class="row drugi">
+            <div class="col-lg-4 col-md-12 col-sm-12 druga">
+                
+                <h2>
+                    Vrbani
+                </h2><br>
+                <p class="tekstonama2">
+                    The Vrbana area is a typical young district of Zagreb with many residents being families.
+                     Services such as a market, a library, a health center and a community center have long been missing. 
+                     Vestigium provides some of these by holding a farmers market, creating a free library, having poetry evenings, 
+                     arranging storytelling sessions for the youngest and by organizing lectures and workshops on living a 
+                     healthy lifestyle, cooking, sewing, relaxing as well as on educational, ecological and eco-creative content. 
+                     The subject is based on the active input of volunteers and members who want to help shape and support the
+                      community to increase the quality of life for their fellow members, their children and themselves. 
+                </p>
+
+                <img class="onama2" src="slike/onama2.jpg">
+                
+
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 cetvrta">
+
+            
+            
+                <h2>
+                    Community
+                </h2><br>
+                <p class="tekstonama2">
+                    Every year the association conducts over 1000 activities to educate children and 
+                    youth in their participation in society, supporting the empowerment of women, preventing and 
+                    fighting against all forms of addictions, helping social services and health care, maintaining 
+                    international development cooperation’s, supporting social entrepreneurship developing and promoting of science, 
+                    education, lifelong learning, culture, arts and succeeding as a community.We organize swap shops, repair cafes, 
+                    zero-waste events, communal cooking, visits to farms and family meet-ups. We work with people to create community
+                     resilience and live with a minimal ecological footprint. We act very locally and our community center is designed 
+                     by the users, run by the local people - for the people.
+
+                    ​
+                </p>
+
+            
+            
+                <img class="onama3" src="slike/onama3.jpg">
+
+            
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 cetvrta">
+
+                <h2>
+                    Association
+                </h2><br>
+                <p class="tekstonama2">
+                    Since 2017, the association has been a beneficiary of institutional support from the National 
+                    Foundation for Civil Society Development and is part of the global Transition Movement for Sustainable Communities.
+                     2017 Vestigium was presented as an inspiring example “called Changemakers” from Croatia at the conference of 
+                     the European Network of Cultural Centers in Hildesheim, Germany. In 2018, our association was nominated among 
+                     the top 30 for the “Social Marie Award“ among 250 European socially innovative projects.
+                </p>
+                <img class="onama4" src="slike/onama4.jpg">
+            
+        </div>
+
+        </div>
+
+    </div>
+</div>
+         <!-- Site footer -->
+         <footer class="site-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <h6>About us</h6>
+                  <p class="text-justify">The Vrbana area is a typical young district of Zagreb with many residents being families. 
+                    Services such as a market, a library, a health center and a community center have long been missing. 
+                    Vestigium provides some of these by holding a farmers market, creating a free library, having poetry evenings, 
+                    arranging storytelling sessions for the youngest and by organizing lectures and workshops on living a healthy lifestyle,
+                     cooking, sewing, relaxing as well as on educational, ecological and eco-creative content. 
+                     </p>
+                </div>
+      
+                
+      
+                <div class="col-xs-6 col-md-3 footerklasa">
+                  <h6 class="naslovFooter">Quick Links</h6>
+                  <ul class="footer-links">
+                    <li><a href="navig.html">Main page</a></li>
+                    <li><a href="onama.html">About us</a></li>
+                    <li><a href="dogadaji.html">Events</a></li>
+                    <li><a href="kontakt.html">Contact</a></li>
+                   
+                  </ul>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                  <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by Vestigium
+                  </p>
+                </div>
+      
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <ul class="social-icons">
+                    <li><a class="facebook" href="https://www.facebook.com/udrugavestigium/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="twitter" href="https://www.instagram.com/vestigiumudruga/?hl=en" target="_blank" ><i class="fa-brands fa-instagram"></i></a></li>  
+                  </ul>
+                </div>
+              </div>
+            </div>
+      </footer>
+</body>
+</html>

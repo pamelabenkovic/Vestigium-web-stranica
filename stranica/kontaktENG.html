@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="slike/favicon-32x32.png">
+    <script src="https://kit.fontawesome.com/ed785aaed0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="KontaktiCss.css">
+    <title>Kontakt</title>
+</head>
+<body>
+    <div class="container-fluid naslovna">
+        <div class="row">
+            <ul>
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <a href="navigENG.html">
+                        <li><img id="logoslika" src="slike/LOGO.png"></li>
+                        
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <li><a href="onamaENG.html">ABOUT US</a></li>
+                    
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <li><a href="dogadajiENG.html">EVENTS</a></li>
+                    
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <li><a href="kontaktENG.html">CONTACT</a></li>
+                    
+                </div>
+
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                    <li><a href="kontakt.html">HRV</a></li>
+                    
+                </div>
+
+               
+
+            </ul>
+        </div>
+        
+    </div>
+
+    <div class="topnav">
+        <a href="navig.html" class="active"><img id="logoslika" src="slike/Watercolor-Leaves-PNG-Transparent-Image.png"></a>
+        <!-- Navigation links (hidden by default) -->
+        <div id="myLinks">
+            <center>
+                <a href="onamaENG.html">ABOUT US</a>
+            </center>
+          
+            <center>
+                <a href="dogadajiENG.html">EVENTS</a>
+            </center>
+
+            <center>
+                <a href="kontaktENG.html">CONTACT</a>
+            </center>
+
+            <center>
+                <a href="kontakt.html">HRV</a>
+            </center>
+          
+          
+          
+        </div>
+        <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+
+      
+   <script>
+    function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+   </script>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5 lijevi">
+            <center>
+            <p id="konatktirajte" style="color:darkgreen">
+                Contact us
+            </p>
+            
+            <form action="/action_page.php">
+                <label for="fname">Name:</label><br>
+                <input type="text" id="fname" name="fname"><br><br>
+
+                <label for="prezime">Surname:</label><br>
+                <input type="text" id="prezime" name="prezime" ><br><br>
+
+                <label for="tel">Mobile number:</label><br>
+                <input type="tel" id="tel" name="tel"><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required/><br><br>
+
+                <label for="poruka">Message:</label><br>
+                <textarea id="poruka" name="poruka" form="poruka">Write message here...</textarea><br><br>
+
+                <!--<input type="submit" value="Submit" id="Submit"> -->
+
+            
+              </form> 
+
+              <button id="btn">
+                <p id="btnText">Submit</p>
+                <div class="check-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                        <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                    </svg>
+                </div>
+            </button>
+        </div>
+        <script type="text/javascript">
+            const btn = document.querySelector("#btn");
+            const btnText = document.querySelector("#btnText");
+    
+            btn.onclick = () => {
+                btnText.innerHTML = "Thanks";
+                btn.classList.add("active");
+            };
+        </script>
+              
+            </center>
+
+        <div class="col-lg-7 col-md-7 col-sm-7 desni">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 ">
+                    <p class="desni1" style="color:darkgreen">
+                        Phone number
+                    </p>
+                    <p>
+                        <div class="desni2">
+                            095 856 1270
+                        </div>
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 ">
+                    <p class="desni1" style="color:darkgreen">
+                        Email
+                    </p>
+                    <p >
+                        <div class="desni3">
+                            udruga.vestigium@gmail.com
+                        </div>
+                        
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 ">
+                    <p class="adresa1" style="color:darkgreen">
+                        Zagreb
+                    </p>
+                    <p class="adresa2">
+                        Rudeška 142 10000 <br>Hrvatska
+                    </p>
+                    <a class="linkBoja" href="https://www.google.com/maps/dir/45.7774078,15.9975453/45.7942407,15.9184533/@45.7862529,15.9202115,13z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0" target="_blank">
+                    <p class="adresa3">
+                        Directions to us 
+                    </p>
+                    </a>
+                    
+                </div>
+
+                <div  class="col-lg-6 col-md-6 col-sm-6">
+                    <img class="slikaNacrtana" src="slike/zagrebLine.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+
+</div>
+
+<!-- Site footer -->
+<footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <h6>About us</h6>
+          <p class="text-justify">The Vrbana area is a typical young district of Zagreb with many residents being families. 
+            Services such as a market, a library, a health center and a community center have long been missing.
+            Vestigium provides some of these by holding a farmers market, creating a free library, having poetry evenings, 
+            arranging storytelling sessions for the youngest and by organizing lectures and workshops on living a healthy lifestyle, 
+            cooking, sewing, relaxing as well as on educational, ecological and eco-creative content.</p>
+        </div>
+
+        
+
+        <div class="col-xs-6 col-md-3 footerklasa">
+          <h6 class="naslovFooter">Quick Links</h6>
+          <ul class="footer-links">
+            <li><a href="navig.html">Main page</a></li>
+            <li><a href="onama.html">About us</a></li>
+            <li><a href="dogadaji.html">Events</a></li>
+            <li><a href="kontakt.html">Contact</a></li>
+           
+          </ul>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by Vestigium
+          </p>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="social-icons">
+            <li><a class="facebook" href="https://www.facebook.com/udrugavestigium/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="twitter" href="https://www.instagram.com/vestigiumudruga/?hl=en" target="_blank" ><i class="fa-brands fa-instagram"></i></a></li>  
+          </ul>
+        </div>
+      </div>
+    </div>
+</footer>
+
+     
+</body>
+</html>

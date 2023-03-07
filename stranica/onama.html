@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="slike/favicon-32x32.png">
+    <script src="https://kit.fontawesome.com/ed785aaed0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="onamaCss.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.carousel.min.css">
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.theme.default.min.css">
+
+    <title>O nama</title>
+</head>
+<body>
+    
+    <div class="container-fluid naslovna">
+        <div class="row">
+            <ul>
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <a href="index.html">
+                        <li><img id="logoslika" src="slike/LOGO.png"></li>
+                        
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <li><a href="onama.html">O  NAMA</a></li>
+                    
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <li><a href="dogadaji.html">DOGAĐANJA</a></li>
+                    
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <li><a href="kontakt.html">KONTAKT</a></li>
+                    
+                </div>
+
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                    <li><a href="onamaENG.html">EN</a></li>
+                    
+                </div>
+
+            </ul>
+        </div>
+        
+    </div>
+
+    <div class="topnav">
+        <a href="navig.html" class="active"><img id="logoslika" src="slike/Watercolor-Leaves-PNG-Transparent-Image.png"></a>
+        <!-- Navigation links (hidden by default) -->
+        <div id="myLinks">
+            <center>
+                <a href="onama.html">O  NAMA</a>
+            </center>
+          
+            <center>
+                <a href="dogadaji.html">DOGAĐANJA</a>
+            </center>
+
+            <center>
+                <a href="kontakt.html">KONTAKT</a>
+            </center>
+          
+          
+        </div>
+        <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+
+      
+   <script>
+    function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+   </script>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <center>
+                <canvas id="canvas"></canvas>
+            </center>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    var canvas = document.getElementById('canvas'),
+      context = canvas.getContext('2d'),
+      height = canvas.height = 400,
+      width = canvas.width = document.body.offsetWidth;
+  
+  function Tree(ctx,x,y) {
+      this.ctx = ctx;
+      this.sleep = 4;
+      this.loss = .1; // branch width loss
+      this.speed = .3; // runner distance speed
+    this.limit = Math.random() * 3000 + 10000; // limit the number of new generations (before I stop);
+    this.i = 0;
+      this.develop(10,0,x,y,0,-Math.random()*3);// start the generation
+  }
+  Tree.prototype = {
+      constructor: Tree,
+      // width, life, x, y, deviationx, devationy
+      develop: function(w,l,x,y,dx,dy) {
+          this.ctx.beginPath();
+          this.ctx.moveTo(x,y); // goto start
+          x+=dx; //set up new position
+          y+=dy;
+          dx+=Math.sin(Math.random()+l)*this.speed;
+          dy+=Math.cos(Math.random()+l + (l/2))*this.speed;
+          // if width is large enough we are a trunk/branch
+          if( w-l*this.loss > .5 ) {
+              this.ctx.lineWidth = w-l*this.loss;
+              this.ctx.strokeStyle = 'rgba(77, 62, 58, 1.0)';
+          } else { // otherwise a leaf
+              this.ctx.lineWidth = (w-l*this.loss)*4;
+              this.ctx.strokeStyle = 'rgba(24, ' + (Math.random() * 60 + 68 | 0) + ', 62, .3)';
+          }
+          // draw line
+          this.ctx.lineTo(x, y);
+          this.ctx.stroke();
+          this.ctx.closePath();
+          if( this.i++ > this.limit ) {
+              return;
+          }
+          // if we've been generating a while start drawing leafs.
+          if( l > 5 * w + Math.random() * 100 && Math.random()>.5) {
+              var that = this;
+              setTimeout(function() {
+                  that.develop(w,++l,x,y,2*Math.sin(Math.random()+l),2*Math.cos(Math.random()+l));
+              }, this.sleep);
+          }
+          // draw branches (or leafs, depending on size).. yes both draw leafs. i said it was cheap.
+          if( w-l*this.loss >= -1.5 ) {
+              var that = this;
+              setTimeout(function() {
+                  that.develop(w,++l,x,y,dx,dy);
+              }, this.sleep);
+          }
+  
+      }
+  };
+  // this entire thing is terribly expensive on your cpu and is a horrible understanding of http://urbanoalvarez.es/blog/2013/01/14/procedurally-generated-trees-in-javascript/
+  for( var i = 0; i < 20; i++ ) {
+      new Tree(context, Math.random()*width, height);
+  }
+  
+  </script>
+
+  <div class="container-fluid sivi">
+    <div class="container">
+        <div class="row prvi">
+            <div class="col-lg-9 col-md-9 col-sm-9 ">
+                <h2>
+                    Ideja
+                </h2><br>
+                <p class="tekstonama1">
+                    Ideja o osnivanju Udruge nastala je 2011. godine druženjem
+                     šest žena koja su na području gradske četvrti Vrbani ustanovile potrebu za 
+                    uspostavljanjem multifunkcionalnog prostora, gdje bi se provodile razne 
+                    inicijative građana za razvoj lokalne zajednice.Naime, osluškujući potrebe svojih susjeda i sugrađana, 
+                    udruga Vestigium prepoznala je mnoge probleme s kojima se građani susreću – otuđenost među ljudima, 
+                    nedostatak mjesta za okupljanje i druženje, nedostatak sadržaja za djecu i odrasle.
+                </p>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <img class="onama1" src="slike/onama1.jpg">
+
+            </div>
+
+        </div>
+
+        <div class="row drugi">
+            <div class="col-lg-4 col-md-12 col-sm-12 druga">
+                
+                <h2>
+                    Vrbani
+                </h2><br>
+                <p class="tekstonama2">
+                    Područje Vrbana je karakteristična mlada četvrt u kojoj većinom žive obitelji s djecom,
+                     a usluge poput tržnice, knjižnice i doma zdravlja izostaju. Udruga Vestigium svojim djelovanjem 
+                     pruža neke od ovih te još mnoge druge usluge i aktivnosti, pa je tako u svom dosadašnjem radu prepoznatljiva
+                      po promociji ekološke poljoprivrede kroz organizaciju manifestacija, grupa solidarne razmjene, izleta i povezivanja
+                       građana sa malim, lokalnim OPGovima itd. 
+                </p>
+
+                <img class="onama2" src="slike/onama2.jpg">
+                
+
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 cetvrta">
+
+            
+            
+                <h2>
+                    Zajednica
+                </h2><br>
+                <p class="tekstonama2">
+                    Najvažnije je spomenuti kako su u izvođenje radionica uključeni upravo
+                     građani – oni kreiraju, predlažu i izvode sadržaj, tako da se rad udruge
+                      bazira na volonterskom doprinosu članova i ostalih zainteresiranih građana. 
+                      U udruzi godišnje volontira 50 ljudi - koji prikupe preko 2000 volonterskih sati. 
+                    Godišnje se u udruzi provede preko 1000 termina raznih aktivnosti
+                     (obrazovanje djece i mladih te njihovu aktivnom sudjelovanju u društvu, prevencija i borba 
+                     protiv svih oblika ovisnosti, promicanje i razvoj volonterstva, socijalne usluge...)
+                </p>
+
+            
+            
+                <img class="onama3" src="slike/onama3.jpg">
+
+            
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 cetvrta">
+
+                <h2>
+                    Udruga
+                </h2><br>
+                <p class="tekstonama2">
+                    Udruga je od 2017.g  korisnica institucionalne podrške Nacionalne zaklade za razvoj civilnog društva, 
+                    dio je svjetskog Tranzicijskog pokreta za održive zajednice.
+
+                    2017. predstavljena je kao inspirativan primjer pod nazivom Changemakers from Croatia na konferenciji Europske mreže 
+                    kulturnih centara u Hildesheimu, Njemačka.
+
+                    2018. nominirana je među prvih 30 za nagradu Sozial Marie između 250 europskih socijalno inovativnih projekata. 
+                </p>
+                <img class="onama4" src="slike/onama4.jpg">
+            
+        </div>
+
+        </div>
+
+    </div>
+</div>
+         <!-- Site footer -->
+         <footer class="site-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <h6>O nama</h6>
+                  <p class="text-justify">Područje Vrbana je karakteristična mlada četvrt u kojoj
+                    većinom žive obitelji s djecom, a usluge poput tržnice,
+                    knjižnice i doma zdravlja izostaju. Udruga Vestigium svojim djelovanjem pruža
+                    neke od ovih te još mnoge druge usluge i aktivnosti, pa je tako u
+                    svom dosadašnjem radu prepoznatljiva po promociji ekološke poljoprivrede
+                    kroz organizaciju manifestacija, grupa solidarne razmjene, izleta i povezivanja
+                    građana sa malim, lokalnim OPGovima te promociji kulture čitanja u slobodnoj knjižnici.</p>
+                </div>
+      
+                
+      
+                <div class="col-xs-6 col-md-3 footerklasa">
+                  <h6 class="naslovFooter">Quick Links</h6>
+                  <ul class="footer-links">
+                    <li><a href="navig.html">Naslovna</a></li>
+                    <li><a href="onama.html">O nama</a></li>
+                    <li><a href="dogadaji.html">Dogadanja</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                   
+                  </ul>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                  <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by Vestigium
+                  </p>
+                </div>
+      
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <ul class="social-icons">
+                    <li><a class="facebook" href="https://www.facebook.com/udrugavestigium/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="twitter" href="https://www.instagram.com/vestigiumudruga/?hl=en" target="_blank" ><i class="fa-brands fa-instagram"></i></a></li>  
+                  </ul>
+                </div>
+              </div>
+            </div>
+      </footer>
+</body>
+</html>
